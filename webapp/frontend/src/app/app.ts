@@ -33,6 +33,14 @@ import { I18nService, LANGUAGES } from './i18n.service';
       <span class="schema" [title]="'app.schema' | t">{{ api.schema() }}</span>
     </header>
 
+    @if (api.loadError(); as err) {
+      <div class="load-error">
+        <strong>{{ 'app.backendUnavailable' | t }}</strong>
+        <pre>{{ err }}</pre>
+        <button (click)="reload()">{{ 'app.retry' | t }}</button>
+      </div>
+    }
+
     <div class="shell">
       <nav class="sidenav" [class.collapsed]="navCollapsed()">
         <button class="collapse" (click)="navCollapsed.set(!navCollapsed())">{{ navCollapsed() ? '&#x276F;' : '&#x276E;' }}</button>
@@ -73,6 +81,10 @@ export class App {
   private router = inject(Router);
 
   readonly navCollapsed = signal(false);
+
+  reload() {
+    location.reload();
+  }
 
   readonly allPages = computed(() => {
     const ids = new Set(Object.keys(this.api.tables()));

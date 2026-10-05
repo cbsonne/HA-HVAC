@@ -11,6 +11,8 @@ export class ApiService {
   readonly schema = signal('');
   readonly tables = signal<Record<string, TableMeta>>({});
   readonly objekt = signal<ObjektStatus | null>(null);
+  /** Fehler beim Start (Backend oder Datenbank nicht erreichbar); sonst null. */
+  readonly loadError = signal<string | null>(null);
 
   async loadMeta(refresh = false): Promise<void> {
     const req = refresh
