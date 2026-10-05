@@ -1,0 +1,19 @@
+{
+  "_hinweis": "BEISPIELDATEN - durch echte Werte ersetzen. typ: zuluft | abluft | ueberstroem. art steuert Faktor/Mindestabluft.",
+  "name": "Beispiel EFH",
+  "personen": 4,
+  "waermeschutz": "hoch",
+  "raumhoehe_m": 2.5,
+  "raeume": [
+    {"name": "Wohnen/Essen", "flaeche_m2": 40, "typ": "zuluft",      "art": "wohnzimmer"},
+    {"name": "Schlafen",     "flaeche_m2": 16, "typ": "zuluft",      "art": "schlafzimmer"},
+    {"name": "Kind 1",       "flaeche_m2": 12, "typ": "zuluft",      "art": "kinderzimmer"},
+    {"name": "Kind 2",       "flaeche_m2": 12, "typ": "zuluft",      "art": "kinderzimmer"},
+    {"name": "Arbeiten",     "flaeche_m2": 10, "typ": "zuluft",      "art": "arbeitszimmer"},
+    {"name": "Küche",        "flaeche_m2": 12, "typ": "abluft",      "art": "kueche"},
+    {"name": "Bad",          "flaeche_m2": 9,  "typ": "abluft",      "art": "bad"},
+    {"name": "WC",           "flaeche_m2": 3,  "typ": "abluft",      "art": "wc"},
+    {"name": "HWR",          "flaeche_m2": 6,  "typ": "abluft",      "art": "hwr"},
+    {"name": "Flur/Diele",   "flaeche_m2": 20, "typ": "ueberstroem", "art": "flur"}
+  ]
+}

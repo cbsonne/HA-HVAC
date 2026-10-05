@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  shutdown: graceful
+
+spring:
+  application:
+    name: lueftung-admin
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/solver}
+    username: ${DB_USER:admin}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+app:
+  # Schema, in dem die Lüftungstabellen liegen. Bewusst konfigurierbar,
+  # damit ein Umbenennen (z. B. bei neuer Objektadresse) nur eine Umgebungsvariable ist.
+  schema: ${DB_SCHEMA:ventilation_milheiros}
+  # Tabellen, die die Oberfläche nur anzeigt (Messwerte, Solver-Ergebnisse).
+  read-only-tables: ${READ_ONLY_TABLES:sensor_values,actuator_values,solver_runs,solver_room_results,solver_actuator_results}
+  # Optionaler HTTP-Basic-Schutz für /api. Leeres Passwort = kein Schutz.
+  auth:
+    user: ${APP_USER:admin}
+    password: ${APP_PASSWORD:}

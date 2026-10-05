@@ -1,0 +1,48 @@
+# Verwaltungsoberfläche für die Lüftungsdatenbank.
+# Läuft neben Home Assistant auf dem Raspberry Pi 5 (arm64).
+#
+#   cp .env.example .env     # und dort die Zugangsdaten der bestehenden Datenbank eintragen
+#   docker compose up -d --build
+#   Oberfläche: http://<pi>:8088
+#
+# Die Datenbank selbst wird hier NICHT gestartet und NICHT verändert;
+# es wird nur auf die vorhandene PostgreSQL-Instanz zugegriffen.
+services:
+  backend:
+    build: ./backend
+    image: lueftung-admin-backend:0.1.0
+    restart: unless-stopped
+    environment:
+      DB_URL: ${DB_URL}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_SCHEMA: ${DB_SCHEMA:-ventilation_milheiros}
+      READ_ONLY_TABLES: ${READ_ONLY_TABLES:-sensor_values,actuator_values,solver_runs,solver_room_results,solver_actuator_results}
+      APP_USER: ${APP_USER:-admin}
+      APP_PASSWORD: ${APP_PASSWORD:-}
+      TZ: ${TZ:-Europe/Lisbon}
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health | grep -q UP"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    networks: [lueftung]
+    # Die Datenbank läuft auf dem Host (oder in einem anderen Compose-Projekt):
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  frontend:
+    build: ./frontend
+    image: lueftung-admin-frontend:0.1.0
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "${WEB_PORT:-8088}:80"
+    networks: [lueftung]
+
+networks:
+  lueftung:
+    driver: bridge

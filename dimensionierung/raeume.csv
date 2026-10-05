@@ -1,0 +1,11 @@
+raum;typ;flaeche_m2;FL_m3h;RL_m3h;NL_m3h;IL_m3h
+Wohnen/Essen;zuluft;40;8;28;40;52
+Schlafen;zuluft;16;5;19;27;35
+Kind 1;zuluft;12;5;19;27;35
+Kind 2;zuluft;12;5;19;27;35
+Arbeiten;zuluft;10;4;14;20;26
+Küche;abluft;12;9;32;45;58
+Bad;abluft;9;9;32;45;58
+WC;abluft;3;5;18;25;32
+HWR;abluft;6;5;18;25;32
+Flur/Diele;ueberstroem;20;0;0;0;0
