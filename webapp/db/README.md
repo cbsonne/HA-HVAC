@@ -6,6 +6,8 @@
 | `proposed/001_objekt_adresse_rollback.sql` | macht die Migration rückgängig (löscht die neuen Tabellen samt Inhalt) |
 | `proposed/002_mehrsprachigkeit.sql` | **Vorschlag, noch nicht angewendet.** Legt `languages` und `translations` für übersetzbare Stammdaten an; bestehende Tabellen bleiben unverändert. |
 | `proposed/002_mehrsprachigkeit_rollback.sql` | macht 002 rückgängig (löscht alle Übersetzungen) |
+| `proposed/003_luftqualitaet_referenzwerte.sql` | **Vorschlag, noch nicht angewendet.** Nur Daten: Quellen (DIN EN 16798-1, WHO 2021/2010/Radon, UBA AIR), 42 Referenzwerte und 12 Korridore; im Korridor steht jeweils der strengere Wert. |
+| `proposed/003_luftqualitaet_referenzwerte_rollback.sql` | macht 003 rückgängig |
 | `schema_ventilation_milheiros.sql` | aus dem gelieferten Dump rekonstruierte DDL, **nur** zum Aufbau einer lokalen Testdatenbank |
 
 An der bestehenden Datenbank wurde nichts verändert.

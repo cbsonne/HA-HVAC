@@ -1,0 +1,38 @@
+# Lüftungs-Weboberfläche (Verwaltung der Stammdaten in ventilation_milheiros).
+# Wird von Docker Compose automatisch zusammen mit docker-compose.yml gelesen.
+# Code liegt in ./HA-HVAC (git clone von GitHub).
+services:
+  lueftung-backend:
+    build: ./HA-HVAC/webapp/backend
+    image: lueftung-admin-backend:latest
+    container_name: lueftung-backend
+    restart: unless-stopped
+    profiles: ["7-lueftung", "all"]
+    environment:
+      DB_URL: jdbc:postgresql://timescaledb:5432/solver
+      DB_USER: ${LUEFTUNG_DB_USER:-${POSTGRES_USER}}
+      DB_PASSWORD: ${LUEFTUNG_DB_PASSWORD:-${POSTGRES_PASSWORD}}
+      DB_SCHEMA: ventilation_milheiros
+      READ_ONLY_TABLES: sensor_values,actuator_values,solver_runs,solver_room_results,solver_actuator_results
+      APP_USER: admin
+      APP_PASSWORD: ${LUEFTUNG_APP_PASSWORD:-}
+      TZ: ${TZ:-Europe/Lisbon}
+    networks:
+      automation_net:
+        ipv4_address: 172.28.0.80
+        aliases: [backend]
+
+  lueftung-frontend:
+    build: ./HA-HVAC/webapp/frontend
+    image: lueftung-admin-frontend:latest
+    container_name: lueftung-frontend
+    restart: unless-stopped
+    profiles: ["7-lueftung", "all"]
+    depends_on:
+      lueftung-backend:
+        condition: service_started
+    ports:
+      - "8088:80"
+    networks:
+      automation_net:
+        ipv4_address: 172.28.0.81
