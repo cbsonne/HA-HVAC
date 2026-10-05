@@ -1,0 +1,28 @@
+# Zugangsdaten
+.env
+.env.*
+!.env.example
+
+# Build-Artefakte
+node_modules/
+dist/
+target/
+.angular/
+out-tsc/
+coverage/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Editoren / System
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+
+# Datenbank-Dumps (enthalten echte Daten)
+*.dump
+*.backup
