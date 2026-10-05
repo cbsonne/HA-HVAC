@@ -7,6 +7,12 @@
 #
 # Die Datenbank selbst wird hier NICHT gestartet und NICHT verändert;
 # es wird nur auf die vorhandene PostgreSQL-Instanz zugegriffen.
+
+# Fester Projektname, unabhängig vom Ordnernamen "webapp". Sonst hält Docker
+# fremde Container aus einem gleichnamigen Ordner (z. B. tomcat) für Reste dieses
+# Projekts, und --remove-orphans würde sie löschen.
+name: lueftung-admin
+
 services:
   backend:
     build: ./backend
